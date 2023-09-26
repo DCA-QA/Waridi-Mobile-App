@@ -1,12 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:waridionline/screens/authentication/Login.dart';
 import 'package:waridionline/screens/authentication/Register.dart';
-import 'package:waridionline/screens/home/carousel.dart';
+import 'package:waridionline/screens/products/ProductDetails.dart';
+import 'package:waridionline/screens/products/ProductScreen.dart';
+import 'package:waridionline/screens/widgets/AllProductsGridView.dart';
 
+import 'screens/orders/Orders.dart';
+import 'screens/products/FeedScreen.dart';
+import 'screens/products/FiltersBottomSheet.dart';
+import 'screens/widgets/NavigationBottomBar.dart';
 
 void main() {
- WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const Home());
   FlutterNativeSplash.remove();
@@ -14,11 +20,39 @@ void main() {
 
 class Home extends StatelessWidget {
   const Home({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyCarousel());
+    print(currentPageIndex);
+    print(currentPageIndex);
+    print(currentPageIndex);
+    print(currentPageIndex);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.light,
+        colorSchemeSeed: Color.fromRGBO(179, 173, 176, 1),
+        // primaryColor: Colors.lightBlue[800],
+        fontFamily: 'Roboto',
+        useMaterial3: true,
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+          titleLarge: TextStyle(fontSize: 36, fontStyle: FontStyle.italic),
+          bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Hind'),
+        ),
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => NavigationBarBottom(),
+        '/allProducts': (context) => AllProductsGrid(),
+        '/allProductScreen': (context) => ProductScreen(),
+        '/login': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
+        '/feedScreen': (context) => FeedScreen(),
+        '/filters': (context) => FiltersBottomSheet(),
+        '/productDetails': (context) => ProductDetailsScreen(),
+        '/orders': (context) => OrdersScreen()
+      },
+    );
   }
 }
-

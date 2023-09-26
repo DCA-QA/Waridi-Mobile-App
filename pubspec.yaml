@@ -37,7 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl_phone_field: ^3.0.0
   flutter_native_splash: ^2.3.1
-
+  carousel_slider: ^4.2.1
+  flutter_rating_stars: ^1.0.3+4
+  youtube_player_flutter: ^8.0.0
+  youtube: ^1.0.1
+  syncfusion_flutter_datepicker: ^22.2.8
+  badges: ^3.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -52,7 +57,7 @@ flutter_native_splash:
 
 
   android_12:
-    image: assets/imageswaridi_1152x1152.png
+    image: assets/images/girl3.jpg
     icon_background_color: "#FFFFFF"
 
 
@@ -67,6 +72,7 @@ flutter_native_splash:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

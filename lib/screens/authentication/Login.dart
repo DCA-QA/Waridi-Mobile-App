@@ -3,16 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'Register.dart';
 
-class LoginApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginPage(),
-    );
-  }
-}
-
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -72,9 +62,9 @@ class LoginForm extends StatelessWidget {
                   // Add onTap callback for the registration process here
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(builder: (context) => RegisterApp()),
+                        '/login',
                       );
                       // Handle register action here
                     },
