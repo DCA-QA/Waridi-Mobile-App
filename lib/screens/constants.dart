@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Constants {
- static  final List<String> categories = [
+  static final List<String> categories = [
     'MEN',
     'WOMEN',
     'VACATION',
@@ -12,7 +13,7 @@ class Constants {
     'WOMEN',
     'VACATION',
   ];
- static final List<String> images = [
+  static final List<String> images = [
     'assets/images/girl1.jpg',
     'assets/images/girl2.jpg',
     'assets/images/girl3.jpg',
@@ -24,4 +25,6 @@ class Constants {
     'assets/images/girl3.jpg',
     // Add more image assets here
   ];
+  // final prefs = SharedPreferencesUtil.sharedPreferences;
 }
+

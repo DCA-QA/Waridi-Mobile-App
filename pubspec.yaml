@@ -43,6 +43,15 @@ dependencies:
   youtube: ^1.0.1
   syncfusion_flutter_datepicker: ^22.2.8
   badges: ^3.1.1
+  flutter_credit_card: ^3.0.7
+  scrollable_list_tab_scroller: ^1.1.2
+  expansion_tile_card: ^3.0.0
+  settings_ui: ^2.0.2
+  shared_preferences: ^2.2.1
+  provider: ^6.0.5  
+  path_provider: 
+  sqflite: 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

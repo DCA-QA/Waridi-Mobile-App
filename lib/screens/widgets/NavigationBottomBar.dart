@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:waridionline/screens/home.dart';
-import 'package:waridionline/screens/orders/Orders.dart';
+import 'package:waridionline/screens/home/More.dart';
+
 import 'package:waridionline/screens/products/FiltersBottomSheet.dart';
 import 'package:waridionline/screens/widgets/Homeappbar.dart';
 import 'package:waridionline/screens/widgets/VendorGridView.dart';
 
+import '../home/VendorsList.dart';
+import '../orders/OrderDetails.dart';
+import '../orders/OrdersList.dart';
 import 'SideBar.dart';
 
 int currentPageIndex = 0;
@@ -33,10 +37,11 @@ class _NavigationBarBottomState extends State<NavigationBarBottom> {
         // body:ImageContainer()
         body: [
           HomePage(),
-          OrdersScreen(),
-          HomePage(),
+          OrderListScreen(),
+          // OrdersScreen(),
+          VendorListScreen(),
           FiltersBottomSheet(),
-          VendorGridView()
+          More()
         ][currentPageIndex],
         bottomNavigationBar: NavigationBar(
           labelBehavior: labelBehavior,

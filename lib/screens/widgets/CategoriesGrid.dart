@@ -16,36 +16,41 @@ class CategoriesGrid extends StatelessWidget {
           mainAxisSpacing: 5.0,
         ),
         itemBuilder: (context, index) {
-          return Card(
-            elevation: 0, // Remove the default card elevation shadow
-            color: Colors.transparent, // Make the card background transparent
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(Constants.images[index]),
-                      fit: BoxFit.cover,
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/allProducts');
+            },
+            child: Card(
+              elevation: 0, // Remove the default card elevation shadow
+              color: Colors.transparent, // Make the card background transparent
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(Constants.images[index]),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: Center(
-                          child: Text(
-                            Constants.categories[index],
-                            style: TextStyle(color: Colors.white),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white, width: 2),
+                          ),
+                          child: Center(
+                            child: Text(
+                              Constants.categories[index],
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

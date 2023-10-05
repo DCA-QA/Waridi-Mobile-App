@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waridionline/screens/widgets/AllProductsGridView.dart';
 import 'package:waridionline/screens/widgets/CategoriesGrid.dart';
 import 'package:waridionline/screens/widgets/VendorGridView.dart';
 
 import 'home/Carousel.dart';
+import 'products/FiltersBottomSheet.dart';
 import 'widgets/CategoriesList.dart';
 import 'widgets/ProductsGrid.dart';
 
@@ -15,6 +17,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+   ProductFilters _appliedFilters = ProductFilters(
+    minPrice: 0,
+    maxPrice: 200000,
+    selectedBrands: [],
+    selectedCategories: [],
+    selectedVendors: [],
+  );
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadSavedFilters();
+  }
+
+  // Method to load saved filters from SharedPreferences
+  Future<void> loadSavedFilters() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _appliedFilters.minPrice = prefs.getDouble('minPrice') ?? 0;
+      _appliedFilters.maxPrice = prefs.getDouble('maxPrice') ?? 200000;
+      _appliedFilters.selectedBrands =
+          prefs.getStringList('selectedBrands') ?? [];
+      _appliedFilters.selectedCategories =
+          prefs.getStringList('selectedCategory') ?? [];
+      _appliedFilters.selectedVendors =
+          prefs.getStringList('selectedVendor') ?? [];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                     onpressed: () => navigateToProducts(context),
                   ),
                   // GridViewProduct(liquors: recentDeals),
-                  AllProductsGrid()
+                  AllProductsGrid(appliedFilters: _appliedFilters,)
                 ],
               ),
             ],

@@ -32,7 +32,7 @@ class _CarouselWidgetState extends State<CarouselWidget> {
 
 Widget content() {
   return Container(
-    height: 300,
+    height: 250,
     child: CarouselSlider(
       items: _images.map((i) {
         return Builder(
@@ -91,8 +91,8 @@ Widget content() {
       options: CarouselOptions(
         autoPlay: true,
         enlargeCenterPage: true,
-        viewportFraction: 0.9,
-        aspectRatio: 2.0,
+        viewportFraction: 1,
+        // aspectRatio: 1.0,
         initialPage: 2,
       ),
     ),

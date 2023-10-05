@@ -87,6 +87,10 @@ class DrawerWidget extends StatelessWidget {
             title: Text('Blogs'),
             onTap: () {
               // Handle Blogs onTap
+               Navigator.pushReplacementNamed(
+                context,
+                '/blogs',
+              );
             },
           ),
           ListTile(
@@ -94,6 +98,11 @@ class DrawerWidget extends StatelessWidget {
             title: Text('Settings'),
             onTap: () {
               // Handle Settings onTap
+             
+               Navigator.pushReplacementNamed(
+                context,
+                '/settingsScreen',
+              );
             },
           ),
           ListTile(

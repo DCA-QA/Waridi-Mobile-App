@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:provider/provider.dart';
+import 'package:waridionline/screens/widgets/ShoppingCart.dart';
+
+import '../cart/Cart.dart';
+import '../cart/CartProvider.dart';
+import '../widgets/AllProductsGridView.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  // final Product product;
+  final Product? product;
 
-  // ProductDetailsScreen({});
+  ProductDetailsScreen({this.product});
 
   @override
   _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
@@ -26,6 +32,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Color color = Colors.red;
   @override
   Widget build(BuildContext context) {
+    // Access the product details from widget.product
+    final product = widget.product;
+    final shoppingCart = Provider.of<ShoppingCart>(context);
     _showCartBadge = _cartBadgeAmount > 0;
     Widget _shoppingCartBadge() {
       return Padding(
@@ -41,7 +50,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             badgeColor: color,
           ),
           badgeContent: Text(
-            _cartBadgeAmount.toString(),
+            5.toString(),
             style: TextStyle(color: Colors.white),
           ),
           child: IconButton(
@@ -61,6 +70,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       return Row(children: stars);
     }
 
+    final cart = Provider.of<CartProvider>(context);
+    void saveData(int index) {
+      cart.dbHelper
+          .insert(
+        Cart(
+          id: index,
+          productId: index.toString(),
+          productName: gridMap[index].title,
+          initialPrice: int.parse(gridMap[index].price),
+          productPrice: int.parse(gridMap[index].price),
+          quantity: ValueNotifier(1),
+          unitTag: 1.toString(),
+          image: gridMap[index].images,
+        ),
+      )
+          .then((value) {
+        cart.addTotalPrice(double.parse(gridMap[index].price));
+        cart.addCounter();
+        print('Product Added to cart');
+      }).onError((error, stackTrace) {
+        print(error.toString());
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Product Details',
@@ -70,21 +103,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       body: ListView(
         // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Image.network(
-              'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-              height: 300,
-              fit: BoxFit.cover),
+          Image.network(product!.images, height: 300, fit: BoxFit.cover),
           Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Bookings",
+                Text(product.title,
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 SizedBox(height: 8.0),
-                Text(
-                    "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'"),
+                Text(product.images),
                 SizedBox(height: 8.0),
                 Row(
                   children: [
@@ -112,6 +141,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           child: IconButton(
                             icon: Icon(Icons.remove),
                             onPressed: () {
+                              saveData(product.id);
                               if (quantity > 1) {
                                 setState(() {
                                   quantity--;
@@ -174,29 +204,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ],
             ),
           ),
-         SizedBox(height: 50,),
-         Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _isAddedToCart = !_isAddedToCart;
-                    _isAddedToCart ? _cartBadgeAmount++ : _cartBadgeAmount--;
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: _isAddedToCart ? Colors.grey : Colors.amber,
-                  minimumSize: Size(150, 55),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0),
-                  ),
-                ),
-                child: Text(
-                  _isAddedToCart ? 'Remove from Cart' : 'Add to Cart',
+          SizedBox(
+            height: 50,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _isAddedToCart = !_isAddedToCart;
+                  _isAddedToCart ? _cartBadgeAmount++ : _cartBadgeAmount--;
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                primary: _isAddedToCart ? Colors.grey : Colors.amber,
+                minimumSize: Size(150, 55),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
                 ),
               ),
+              child: Text(
+                _isAddedToCart ? 'Remove from Cart' : 'Add to Cart',
+              ),
             ),
-         
+          ),
         ],
       ),
     );

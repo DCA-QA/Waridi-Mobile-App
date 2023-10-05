@@ -1,5 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class ProductFilters {
+  double minPrice;
+  double maxPrice;
+  List<String> selectedBrands;
+  List<String> selectedCategories;
+  List<String> selectedVendors;
+
+  ProductFilters({
+    required this.minPrice,
+    required this.maxPrice,
+    required this.selectedBrands,
+    required this.selectedCategories,
+    required this.selectedVendors,
+  });
+}
 
 class FiltersBottomSheet extends StatefulWidget {
   @override
@@ -15,25 +32,45 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   List<String> selectedBrands = []; // To store selected brands
 
   List<String> allBrands = [
-    'Brand A',
-    'Brand B',
-    'Brand C',
-    // Add more brands here
+    'Nike',
+    'Adidas',
+    'Apple',
+    'Samsung',
+    'Sony',
+    'Coca-Cola',
+    'AmazonBasics',
+    "L'Oréal",
+    'Rolex',
+    'Dior'
   ];
+
   List<String> selectedCategory = []; // To store selected brands
 
   List<String> allCategory = [
-    'Category A',
-    'Category B',
-    'Category C',
-    // Add more brands here
+    'Electronics',
+    'Clothing',
+    'Home Appliances',
+    'Books',
+    'Toys',
+    'Beauty & Personal Care',
+    'Sports & Outdoors',
+    'Furniture',
+    'Jewelry',
+    // Add more categories here
   ];
+
   List<String> selectedVendor = []; // To store selected brands
 
   List<String> allVendors = [
-    'Vendor A',
-    'Vendor B',
-    'Vendor C',
+    'Wasili sellers',
+    "Trendy Threads Clothing",
+    "Masterpiece Art Gallery",
+    "Happy Paws Pet Store",
+    "Star Auto Repairs",
+    "Garden Delights Nursery",
+    "TechWizards IT Services",
+    "Luxury Living Furniture",
+    "Timeless Jewelry Emporium"
     // Add more brands here
   ];
 
@@ -42,10 +79,70 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     super.initState();
     _minPriceController.text = _minPrice.toInt().toString();
     _maxPriceController.text = _maxPrice.toInt().toString();
+    loadSavedFilters();
+  }
+
+  // Method to save filters in SharedPreferences
+  Future<void> saveFilters() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('minPrice', _minPrice);
+    await prefs.setDouble('maxPrice', _maxPrice);
+    await prefs.setStringList('selectedBrands', selectedBrands);
+    await prefs.setStringList('selectedCategory', selectedCategory);
+    await prefs.setStringList('selectedVendor', selectedVendor);
+  }
+
+  // Method to load saved filters from SharedPreferences
+  Future<void> loadSavedFilters() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _minPrice = prefs.getDouble('minPrice') ?? 0;
+      _maxPrice = prefs.getDouble('maxPrice') ?? 200000;
+      selectedBrands = prefs.getStringList('selectedBrands') ?? [];
+      selectedCategory = prefs.getStringList('selectedCategory') ?? [];
+      selectedVendor = prefs.getStringList('selectedVendor') ?? [];
+    });
+    _minPriceController.text = _minPrice.toStringAsFixed(2);
+    _maxPriceController.text = _maxPrice.toStringAsFixed(2);
+  }
+
+  // Method to clear saved filters
+  Future<void> clearFilters() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('minPrice');
+    await prefs.remove('maxPrice');
+    await prefs.remove('selectedBrands');
+    await prefs.remove('selectedCategory');
+    await prefs.remove('selectedVendor');
+    // Reset the filter variables
+    setState(() {
+      _minPrice = 0;
+      _maxPrice = 200000;
+      selectedBrands = [];
+      selectedCategory = [];
+      selectedVendor = [];
+    });
+    _minPriceController.text = '';
+    _maxPriceController.text = '';
   }
 
   @override
   Widget build(BuildContext context) {
+    // List<String> selectedVendors = [];
+    // List<String> selectedCategories = [];
+    // List<String> selectedBrands = [];
+    ProductFilters filters = ProductFilters(
+      minPrice: _minPrice,
+      maxPrice: _maxPrice,
+      selectedBrands: selectedBrands,
+      selectedCategories: selectedCategory,
+      selectedVendors: selectedVendor,
+    );
+    debugPrint(filters.maxPrice.toString());
+    debugPrint(filters.minPrice.toString());
+    debugPrint(filters.selectedBrands.toList().toString());
+    debugPrint(filters.selectedCategories.toList().toString());
+    debugPrint(filters.selectedVendors.toList().toString());
     return Container(
       padding: EdgeInsets.all(16.0),
       child: ListView(
@@ -190,6 +287,15 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               );
             }).toList(),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              // Save filters to SharedPreferences
+              await saveFilters();
+              // Close the bottom sheet
+              Navigator.of(context).pop();
+            },
+            child: Text('Apply Filters'),
+          )
         ],
       ),
     );
