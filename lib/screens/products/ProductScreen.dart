@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:waridionline/screens/cartoperations/models/Product.dart';
 import 'package:waridionline/screens/products/FiltersBottomSheet.dart';
-import 'package:waridionline/screens/widgets/AllProductsGridView.dart';
+
 import 'package:waridionline/screens/widgets/ProductsAppBar.dart';
 
-import '../widgets/Homeappbar.dart';
-import '../widgets/SideBar.dart';
+import '../../services/UserService.dart';
+import '../widgets/AllProductsGridView.dart';
+
 
 class ProductScreen extends StatefulWidget {
   final Widget? body; // Add this parameter
@@ -33,11 +36,19 @@ class _ProductScreenState extends State<ProductScreen> {
     selectedCategories: [],
     selectedVendors: [],
   );
+  List<Product> products = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    loadSavedFilters();
+    // loadSavedFilters();
+    getAllProducts();
+  }
+
+  Future<void> getAllProducts() async {
+    products = await context.read<UserService>().getAllProducts();
+    setState(() {});
   }
 
   // Method to load saved filters from SharedPreferences
@@ -90,9 +101,9 @@ class _ProductScreenState extends State<ProductScreen> {
                 height: 15,
               ),
               AllProductsGrid(
-          // Pass the loaded filters to AllProductsGrid
-          appliedFilters: _appliedFilters,
-        ),
+                // Pass the loaded filters to AllProductsGrid
+                appliedFilters: _appliedFilters,
+              ),
             ],
           ),
         ));

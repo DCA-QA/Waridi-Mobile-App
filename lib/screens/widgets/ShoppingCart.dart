@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../cartoperations/models/Product.dart';
 import 'AllProductsGridView.dart';
 
 class ShoppingCart extends ChangeNotifier {

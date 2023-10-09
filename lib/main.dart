@@ -3,7 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:waridionline/screens/authentication/Login.dart';
 import 'package:waridionline/screens/authentication/Register.dart';
-import 'package:waridionline/screens/cart/CartProvider.dart';
+
 import 'package:waridionline/screens/home/Blogs.dart';
 import 'package:waridionline/screens/home/BlogsDetails.dart';
 import 'package:waridionline/screens/home/VendorList.dart';
@@ -22,13 +22,15 @@ import 'screens/products/FeedScreen.dart';
 import 'screens/products/FiltersBottomSheet.dart';
 import 'screens/widgets/NavigationBottomBar.dart';
 import 'screens/widgets/ShoppingCart.dart';
+import 'services/User.dart';
+import 'services/UserService.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => ShoppingCart()),
-    ChangeNotifierProvider(create: (_) => CartProvider()),
+    Provider<UserService>(create: (context) => UserService()),
+    ChangeNotifierProvider<User>(create: (context) => User(context)),
   ], child: Home()));
   FlutterNativeSplash.remove();
 }

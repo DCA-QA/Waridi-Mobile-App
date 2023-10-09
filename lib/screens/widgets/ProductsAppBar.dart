@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:waridionline/screens/cart/CartProvider.dart';
+
 import 'package:waridionline/screens/orders/OrdersList.dart';
 import 'package:badges/badges.dart' as badges;
+
+import '../models/user_model.dart';
 
 class ProductsAppBar extends StatelessWidget {
   @override
@@ -45,14 +47,11 @@ class ProductsAppBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: badges.Badge(
-            badgeContent:
-                Consumer<CartProvider>(builder: (context, value, child) {
-              return Text(
-                value.getCounter().toString(),
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
-              );
-            }),
+            badgeContent: Text(context.watch<User>().totalProduct.toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .overline!
+                    .copyWith(color: Colors.white)),
             position: badges.BadgePosition.topEnd(top: 0, end: 3),
             badgeAnimation: badges.BadgeAnimation.slide(
               // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),

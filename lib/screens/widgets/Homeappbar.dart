@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
+import '../models/user_model.dart';
 
 class MyAppBar extends StatelessWidget {
   @override
@@ -13,9 +15,9 @@ class MyAppBar extends StatelessWidget {
       //     // TODO: Add functionality for menu button
       //   },
       // ),
-       backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       title: SizedBox(
-        height:50,
+        height: 50,
         // width: 200, // Adjust the width as needed
         child: Row(
           children: [
@@ -27,20 +29,15 @@ class MyAppBar extends StatelessWidget {
             SizedBox(width: 8), // Add spacing between logo and search field
             Expanded(
               child: Container(
-               
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey,
-
                 ),
                 child: TextField(
-                         
                   decoration: InputDecoration(
-                     
                     hintText: 'Search by name',
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.search),
-                    
                   ),
                 ),
               ),
@@ -49,13 +46,56 @@ class MyAppBar extends StatelessWidget {
         ),
       ),
       actions: [
-        IconButton(
-          icon: Icon(Icons.shopping_cart),
-                  color: Colors.black,
-          onPressed: () {
-            // TODO: Add functionality for cart button
+        Consumer<User>(
+          builder: (context, user, child) {
+            return badges.Badge(
+              badgeContent: Text(
+                user.totalProduct.toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .overline!
+                    .copyWith(color: Colors.white),
+              ),
+              position: badges.BadgePosition.topEnd(top: 0, end: 3),
+              badgeAnimation: badges.BadgeAnimation.slide(
+                curve: Curves.easeInCubic,
+              ),
+              showBadge: true,
+              badgeStyle: badges.BadgeStyle(
+                badgeColor: Colors.amber,
+              ),
+              child: IconButton(
+                icon: Icon(Icons.shopping_cart),
+                iconSize: 27,
+                onPressed: () {},
+              ),
+            );
           },
         ),
+
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: badges.Badge(
+        //     badgeContent: Text(context.watch<User>().totalProduct.toString(),
+        //         style: Theme.of(context)
+        //             .textTheme
+        //             .overline!
+        //             .copyWith(color: Colors.white)),
+        //     position: badges.BadgePosition.topEnd(top: 0, end: 3),
+        //     badgeAnimation: badges.BadgeAnimation.slide(
+        //       // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
+        //       curve: Curves.easeInCubic,
+        //     ),
+        //     showBadge: true,
+        //     badgeStyle: badges.BadgeStyle(
+        //       badgeColor: Colors.amber,
+        //     ),
+        //     child: IconButton(
+        //         icon: Icon(Icons.shopping_cart),
+        //         iconSize: 27,
+        //         onPressed: () {}),
+        //   ),
+        // )
       ],
     );
   }
