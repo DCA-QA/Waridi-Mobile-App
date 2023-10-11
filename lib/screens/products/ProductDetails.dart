@@ -5,6 +5,7 @@ import 'package:waridionline/screens/widgets/ShoppingCart.dart';
 
 import '../../services/UserService.dart';
 import '../cartoperations/models/Product.dart';
+import '../models/user_model.dart';
 import '../widgets/AllProductsGridView.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -90,7 +91,29 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         appBar: AppBar(
           title: Text('Product Details',
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25)),
-          actions: [_shoppingCartBadge()],
+          actions: [
+            badges.Badge(
+              // badgeContent:
+              //     Consumer<CartModel>(builder: (context, cart, child) {
+              //   return Text('${cart.items.length}');
+              // }),
+              badgeContent: Text('${context.watch<User>().basketItems.length}'),
+
+              position: badges.BadgePosition.topEnd(top: 0, end: 3),
+              badgeAnimation: badges.BadgeAnimation.slide(
+                curve: Curves.easeInCubic,
+              ),
+              showBadge: true,
+              badgeStyle: badges.BadgeStyle(
+                badgeColor: Colors.amber,
+              ),
+              child: IconButton(
+                icon: Icon(Icons.shopping_cart),
+                iconSize: 27,
+                onPressed: () {},
+              ),
+            )
+          ],
         ),
         body: FutureBuilder<Product>(
             future: UserService().fetchProductByID(productID),
@@ -222,10 +245,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _isAddedToCart = !_isAddedToCart;
-                            _isAddedToCart
-                                ? _cartBadgeAmount++
-                                : _cartBadgeAmount--;
+                            if (_isAddedToCart) {
+                              // Add the item to the cart
+                              context
+                                  .read<User>()
+                                  .addFirstItemToBasket(product);
+                            } else {
+                              // Show a message indicating that the item is already in the cart
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Item is already in the cart'),
+                                ),
+                              );
+                            }
                           });
                         },
                         style: ElevatedButton.styleFrom(

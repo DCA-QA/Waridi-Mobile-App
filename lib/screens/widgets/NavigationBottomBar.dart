@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:waridionline/screens/cartoperations/CartNotifier.dart';
 import 'package:waridionline/screens/home.dart';
 import 'package:waridionline/screens/home/More.dart';
 import 'package:badges/badges.dart' as badges;
@@ -67,32 +68,27 @@ class _NavigationBarBottomState extends State<NavigationBarBottom> {
                   ),
                 ),
                 actions: [
-                  Consumer<User>(
-                    builder: (context, user, child) {
-                      return badges.Badge(
-                        badgeContent: Text(
-                          user.totalProduct.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .overline!
-                              .copyWith(color: Colors.white),
-                        ),
-                        position: badges.BadgePosition.topEnd(top: 0, end: 3),
-                        badgeAnimation: badges.BadgeAnimation.slide(
-                          curve: Curves.easeInCubic,
-                        ),
-                        showBadge: true,
-                        badgeStyle: badges.BadgeStyle(
-                          badgeColor: Colors.amber,
-                        ),
-                        child: IconButton(
-                          icon: Icon(Icons.shopping_cart),
-                          iconSize: 27,
-                          onPressed: () {},
-                        ),
-                      );
-                    },
-                  ),
+                  badges.Badge(
+                    // badgeContent:
+                    //     Consumer<CartModel>(builder: (context, cart, child) {
+                    //   return Text('${cart.items.length}');
+                    // }),
+                    badgeContent: Text('${context.watch<User>().basketItems.length}'),
+
+                    position: badges.BadgePosition.topEnd(top: 0, end: 3),
+                    badgeAnimation: badges.BadgeAnimation.slide(
+                      curve: Curves.easeInCubic,
+                    ),
+                    showBadge: true,
+                    badgeStyle: badges.BadgeStyle(
+                      badgeColor: Colors.amber,
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.shopping_cart),
+                      iconSize: 27,
+                      onPressed: () {},
+                    ),
+                  )
                 ])),
         drawer: DrawerWidget(),
         // body:ImageContainer()

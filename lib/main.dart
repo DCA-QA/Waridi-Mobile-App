@@ -10,10 +10,12 @@ import 'package:waridionline/screens/home/VendorList.dart';
 import 'package:waridionline/screens/orders/CheckoutScreen.dart';
 import 'package:waridionline/screens/products/ProductDetails.dart';
 import 'package:waridionline/screens/products/ProductScreen.dart';
-import 'package:waridionline/screens/test.dart';
+import 'package:waridionline/screens/Settings.dart';
 import 'package:waridionline/screens/widgets/AllProductsGridView.dart';
 
+import 'screens/cartoperations/CartNotifier.dart';
 import 'screens/home/VendorsList.dart';
+import 'screens/models/user_model.dart';
 import 'screens/orders/PayViaCard.dart';
 import 'screens/orders/OrderDetails.dart';
 import 'screens/orders/OrdersList.dart';
@@ -22,15 +24,16 @@ import 'screens/products/FeedScreen.dart';
 import 'screens/products/FiltersBottomSheet.dart';
 import 'screens/widgets/NavigationBottomBar.dart';
 import 'screens/widgets/ShoppingCart.dart';
-import 'services/User.dart';
+
 import 'services/UserService.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<CartModel>(create: (context) => CartModel()),
+    ChangeNotifierProvider<User>(create: (context) => User()),
     Provider<UserService>(create: (context) => UserService()),
-    ChangeNotifierProvider<User>(create: (context) => User(context)),
   ], child: Home()));
   FlutterNativeSplash.remove();
 }

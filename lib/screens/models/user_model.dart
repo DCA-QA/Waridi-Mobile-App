@@ -1,20 +1,23 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:waridionline/screens/cartoperations/models/Product.dart';
 
 import '../../services/UserService.dart';
 
-
 class User extends ChangeNotifier {
   Map<Product, int> basketProducts = {};
 
-  late UserService service;
+  // late UserService service;
 
-  User(BuildContext context) {
-    service = context.read<UserService>();
-  }
+  // User(BuildContext context) {
+  //   service = context.read<UserService>();
+  // }
 
   List<Product> get basketItems => basketProducts.keys.toList();
+
+  UnmodifiableListView<Product> get items => UnmodifiableListView(basketItems);
 
   double get basketTotalMoney {
     if (basketProducts.isEmpty) {
@@ -34,7 +37,8 @@ class User extends ChangeNotifier {
 
   void addFirstItemToBasket(Product product) {
     basketProducts[product] = 1;
-    service.addProduct(product);
+    // service.addProduct(product);
+    UserService().addProduct(product);
     notifyListeners();
   }
 

@@ -8,7 +8,7 @@ import '../widgets/feeds/feed1.dart';
 
 class FeedScreen extends StatelessWidget {
   final Widget? body; // Add this parameter
-// {super.key, required this.texToDisplay, this.navigateTo, this.onpressed}
+// {super.key, required this.texToDisplay, this.git remote -veTo, this.onpressed}
   const FeedScreen({Key? key, this.body}) : super(key: key);
   @override
   Widget build(BuildContext context) {

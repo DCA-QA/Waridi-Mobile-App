@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:waridionline/screens/models/user_model.dart';
 
 import '../../services/UserService.dart';
 import '../cartoperations/models/Product.dart';
@@ -143,7 +144,9 @@ class _AllProductsGridState extends State<AllProductsGrid> {
                           ),
                           IconButton(
                             onPressed: () {
-                              // saveData(index);
+                              //add to cart
+                              context.read<User>().addFirstItemToBasket(
+                                  products.elementAt(index));
                             },
                             icon: Icon(
                               CupertinoIcons.cart,
