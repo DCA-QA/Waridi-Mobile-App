@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:waridionline/screens/models/user_model.dart';
 
-import '../../services/UserService.dart';
-import '../cartoperations/models/Product.dart';
-import '../products/FiltersBottomSheet.dart';
+import '../../../services/user-services.dart';
+import '../../cartoperations/models/products.dart';
+import '../../products/filters-bottom-sheet.dart';
 
 class AllProductsGrid extends StatefulWidget {
   final ProductFilters? appliedFilters;
@@ -144,7 +144,6 @@ class _AllProductsGridState extends State<AllProductsGrid> {
                           ),
                           IconButton(
                             onPressed: () {
-                              //add to cart
                               context.read<User>().addFirstItemToBasket(
                                   products.elementAt(index));
                             },
@@ -152,6 +151,8 @@ class _AllProductsGridState extends State<AllProductsGrid> {
                               CupertinoIcons.cart,
                             ),
                           ),
+                          Text(
+                              context.read<User>().basketTotalMoney.toString()),
                         ],
                       ),
                     ],

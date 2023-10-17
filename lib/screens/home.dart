@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:waridionline/screens/widgets/AllProductsGridView.dart';
-import 'package:waridionline/screens/widgets/CategoriesGrid.dart';
-import 'package:waridionline/screens/widgets/VendorGridView.dart';
+import 'package:waridionline/screens/widgets/products/all-products-grid-view.dart';
+import 'package:waridionline/screens/widgets/products/categories-grid.dart';
+import 'package:waridionline/screens/widgets/vendors-grid-view.dart';
 
-import 'home/Carousel.dart';
-import 'products/FiltersBottomSheet.dart';
-import 'widgets/CategoriesList.dart';
-import 'widgets/ProductsGrid.dart';
+import 'home/carousel.dart';
+import 'products/filters-bottom-sheet.dart';
+import 'widgets/products/categories-list.dart';
+import 'widgets/products/products-grid.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

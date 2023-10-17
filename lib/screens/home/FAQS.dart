@@ -1,7 +1,8 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/ExpansionWidget.dart';
+import '../widgets/expansion-widget.dart';
+
 
 class FAQS extends StatefulWidget {
   const FAQS({Key? key, this.title}) : super(key: key);

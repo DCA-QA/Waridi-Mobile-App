@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:waridionline/screens/cartoperations/CartNotifier.dart';
-import 'package:waridionline/screens/home.dart';
-import 'package:waridionline/screens/home/More.dart';
-import 'package:badges/badges.dart' as badges;
-import 'package:waridionline/screens/products/FiltersBottomSheet.dart';
-import 'package:waridionline/screens/widgets/Homeappbar.dart';
-import 'package:waridionline/screens/widgets/VendorGridView.dart';
 
-import '../home/VendorsList.dart';
+import 'package:waridionline/screens/home.dart';
+import 'package:waridionline/screens/home/more.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:waridionline/screens/products/filters-bottom-sheet.dart';
+import 'package:waridionline/screens/widgets/home-app-bar.dart';
+import 'package:waridionline/screens/widgets/vendors-grid-view.dart';
+
+import '../home/vendors-list.dart';
 import '../models/user_model.dart';
 import '../orders/OrderDetails.dart';
 import '../orders/OrdersList.dart';
-import 'SideBar.dart';
+import 'sidebar.dart';
 
 int currentPageIndex = 0;
 

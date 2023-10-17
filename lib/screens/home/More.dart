@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:waridionline/screens/home/FAQS.dart';
+import 'package:waridionline/screens/home/faqs.dart';
 import 'package:waridionline/screens/orders/CheckoutScreen.dart';
 import 'package:waridionline/screens/orders/OrdersList.dart';
 
-import '../products/CategorieScreen.dart';
+import '../products/categories-screen.dart';
+
 
 class More extends StatefulWidget {
   const More({super.key});

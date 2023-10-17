@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
-import 'package:waridionline/screens/widgets/ShoppingCart.dart';
-
-import '../../services/UserService.dart';
-import '../cartoperations/models/Product.dart';
+import '../../services/user-services.dart';
+import '../cartoperations/models/products.dart';
 import '../models/user_model.dart';
-import '../widgets/AllProductsGridView.dart';
+import '../widgets/products/all-products-grid-view.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final int? product;

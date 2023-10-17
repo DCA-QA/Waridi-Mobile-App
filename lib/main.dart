@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:waridionline/screens/authentication/Login.dart';
-import 'package:waridionline/screens/authentication/Register.dart';
+import 'package:waridionline/screens/authentication/login.dart';
+import 'package:waridionline/screens/authentication/register.dart';
 
-import 'package:waridionline/screens/home/Blogs.dart';
-import 'package:waridionline/screens/home/BlogsDetails.dart';
-import 'package:waridionline/screens/home/VendorList.dart';
+import 'package:waridionline/screens/home/blogs.dart';
+import 'package:waridionline/screens/home/blogdetails.dart';
+
 import 'package:waridionline/screens/orders/CheckoutScreen.dart';
-import 'package:waridionline/screens/products/ProductDetails.dart';
-import 'package:waridionline/screens/products/ProductScreen.dart';
-import 'package:waridionline/screens/Settings.dart';
-import 'package:waridionline/screens/widgets/AllProductsGridView.dart';
+import 'package:waridionline/screens/products/products-details.dart';
+import 'package:waridionline/screens/products/products-screen.dart';
+import 'package:waridionline/screens/settings.dart';
+import 'package:waridionline/screens/widgets/products/all-products-grid-view.dart';
 
-import 'screens/cartoperations/CartNotifier.dart';
-import 'screens/home/VendorsList.dart';
+import 'screens/home/product-categories-screen.dart';
+import 'screens/home/vendors-list.dart';
 import 'screens/models/user_model.dart';
 import 'screens/orders/PayViaCard.dart';
 import 'screens/orders/OrderDetails.dart';
 import 'screens/orders/OrdersList.dart';
-import 'screens/products/CategorieScreen.dart';
+import 'screens/products/categories-screen.dart';
 import 'screens/products/FeedScreen.dart';
-import 'screens/products/FiltersBottomSheet.dart';
-import 'screens/widgets/NavigationBottomBar.dart';
-import 'screens/widgets/ShoppingCart.dart';
+import 'screens/products/filters-bottom-sheet.dart';
+import 'screens/widgets/navigation-bar-bottom.dart';
 
-import 'services/UserService.dart';
+
+import 'services/user-services.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<CartModel>(create: (context) => CartModel()),
     ChangeNotifierProvider<User>(create: (context) => User()),
     Provider<UserService>(create: (context) => UserService()),
   ], child: Home()));

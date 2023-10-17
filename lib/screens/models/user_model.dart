@@ -2,18 +2,12 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:waridionline/screens/cartoperations/models/Product.dart';
+import 'package:waridionline/screens/cartoperations/models/products.dart';
 
-import '../../services/UserService.dart';
+import '../../services/user-services.dart';
 
 class User extends ChangeNotifier {
   Map<Product, int> basketProducts = {};
-
-  // late UserService service;
-
-  // User(BuildContext context) {
-  //   service = context.read<UserService>();
-  // }
 
   List<Product> get basketItems => basketProducts.keys.toList();
 
@@ -59,6 +53,12 @@ class User extends ChangeNotifier {
     } else {
       basketProducts[product] = basketProducts[product]! - 1;
     }
+    notifyListeners();
+  }
+
+  void removeAll() {
+    items.clear();
+
     notifyListeners();
   }
 }

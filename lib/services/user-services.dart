@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/cartoperations/models/Product.dart';
+import '../screens/cartoperations/models/products.dart';
 
 class UserService {
   late Dio dio;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:waridionline/screens/widgets/AllProductsGridView.dart';
-import 'package:waridionline/screens/widgets/ProductsAppBar.dart';
+import 'package:waridionline/screens/widgets/products/all-products-grid-view.dart';
+import 'package:waridionline/screens/widgets/products/products-app-bar.dart';
 
-import '../widgets/Homeappbar.dart';
-import '../widgets/SideBar.dart';
+import '../widgets/home-app-bar.dart';
+import '../widgets/sidebar.dart';
 import '../widgets/feeds/feed1.dart';
 
 class FeedScreen extends StatelessWidget {

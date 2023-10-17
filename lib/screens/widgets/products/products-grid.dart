@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waridionline/screens/constants.dart';
-import 'package:waridionline/screens/widgets/RatingStarts.dart';
+import 'package:waridionline/screens/widgets/rating-stars.dart';
 
 class ProductGridView extends StatelessWidget {
   const ProductGridView({

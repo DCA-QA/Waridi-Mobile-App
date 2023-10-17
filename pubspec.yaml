@@ -51,12 +51,13 @@ dependencies:
 
   path_provider: 
   shopping_cart: ^0.0.1
-  sqflite: 
+  sqflite: ^2.3.0 
   flutter_cart: ^0.0.8
   equatable: ^2.0.5
   dio: ^5.3.3
   get: ^4.6.6
   provider: ^6.0.5
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:

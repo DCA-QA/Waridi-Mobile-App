@@ -3,8 +3,8 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/cartoperations/models/Product.dart';
-import '../screens/widgets/AllProductsGridView.dart';
+import '../screens/cartoperations/models/products.dart';
+import '../screens/widgets/products/all-products-grid-view.dart';
 
 class Services {
   // List<Product> filterProducts(

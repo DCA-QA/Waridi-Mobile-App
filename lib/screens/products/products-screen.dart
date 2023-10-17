@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:waridionline/screens/cartoperations/models/Product.dart';
-import 'package:waridionline/screens/products/FiltersBottomSheet.dart';
+import 'package:waridionline/screens/cartoperations/models/products.dart';
+import 'package:waridionline/screens/products/filters-bottom-sheet.dart';
 
-import 'package:waridionline/screens/widgets/ProductsAppBar.dart';
+import 'package:waridionline/screens/widgets/products/products-app-bar.dart';
 
-import '../../services/UserService.dart';
-import '../widgets/AllProductsGridView.dart';
+import '../../services/user-services.dart';
+import '../widgets/products/all-products-grid-view.dart';
 
 
 class ProductScreen extends StatefulWidget {

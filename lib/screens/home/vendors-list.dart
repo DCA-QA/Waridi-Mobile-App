@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:waridionline/screens/home/VendorList.dart';
 
 class Vendor {
   final String title;

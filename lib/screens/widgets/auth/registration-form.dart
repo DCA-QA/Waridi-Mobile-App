@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../authentication/Login.dart';
+import '../../authentication/login.dart';
 
 class RegisterForm extends StatelessWidget {
   @override

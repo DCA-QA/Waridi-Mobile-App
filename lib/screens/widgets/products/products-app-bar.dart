@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:waridionline/screens/orders/OrdersList.dart';
 import 'package:badges/badges.dart' as badges;
 
-import '../models/user_model.dart';
+import '../../models/user_model.dart';
 
 class ProductsAppBar extends StatelessWidget {
   @override
