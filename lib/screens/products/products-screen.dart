@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:search_page/search_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:waridionline/screens/cartoperations/models/products.dart';
+import 'package:waridionline/screens/models/products/products.dart';
 import 'package:waridionline/screens/products/filters-bottom-sheet.dart';
 
 import 'package:waridionline/screens/widgets/products/products-app-bar.dart';
 
-import '../../services/user-services.dart';
-import '../widgets/products/all-products-grid-view.dart';
 
+import '../../services/product-service.dart';
+import '../widgets/products/all-products-grid-view.dart';
 
 class ProductScreen extends StatefulWidget {
   final Widget? body; // Add this parameter
@@ -43,69 +45,58 @@ class _ProductScreenState extends State<ProductScreen> {
     // TODO: implement initState
     super.initState();
     // loadSavedFilters();
-    getAllProducts();
+    // getAllProducts();
   }
 
-  Future<void> getAllProducts() async {
-    products = await context.read<UserService>().getAllProducts();
-    setState(() {});
-  }
+  // Future<void> getAllProducts() async {
+  //   products = await context.read<UserService>().getAllProducts();
+  //   setState(() {});
+  // }
 
-  // Method to load saved filters from SharedPreferences
-  Future<void> loadSavedFilters() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _appliedFilters.minPrice = prefs.getDouble('minPrice') ?? 0;
-      _appliedFilters.maxPrice = prefs.getDouble('maxPrice') ?? 200000;
-      _appliedFilters.selectedBrands =
-          prefs.getStringList('selectedBrands') ?? [];
-      _appliedFilters.selectedCategories =
-          prefs.getStringList('selectedCategory') ?? [];
-      _appliedFilters.selectedVendors =
-          prefs.getStringList('selectedVendor') ?? [];
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(56.0),
-          child: ProductsAppBar(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(56.0),
+        child: ProductsAppBar(),
+      ),
+      // drawer: DrawerWidget(),
+      // body:ImageContainer()
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10.0, right: 10, left: 10),
+        child: ListView(
+          children: [
+            SizedBox(height: 4),
+            ElevatedButton(
+              onPressed: () => _openFiltersBottomSheet(context),
+              child: Text(
+                'Apply Filters',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.amber, // Set the button background color
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(0), // Set corner radius to 0
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            AllProductsGrid(
+              // Pass the loaded filters to AllProductsGrid
+              appliedFilters: _appliedFilters,
+            ),
+          ],
         ),
-        // drawer: DrawerWidget(),
-        // body:ImageContainer()
-        body: Padding(
-          padding: const EdgeInsets.only(top: 10.0, right: 10, left: 10),
-          child: ListView(
-            children: [
-              SizedBox(height: 4),
-              ElevatedButton(
-                onPressed: () => _openFiltersBottomSheet(context),
-                child: Text(
-                  'Apply Filters',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.amber, // Set the button background color
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(0), // Set corner radius to 0
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              AllProductsGrid(
-                // Pass the loaded filters to AllProductsGrid
-                appliedFilters: _appliedFilters,
-              ),
-            ],
-          ),
-        ));
+      ),
+     
+    );
   }
 }

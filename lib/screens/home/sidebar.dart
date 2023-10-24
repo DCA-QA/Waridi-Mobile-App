@@ -55,14 +55,20 @@ class DrawerWidget extends StatelessWidget {
             leading: Icon(Icons.category),
             title: Text('Categories'),
             onTap: () {
-              // Handle Categories onTap
+             Navigator.pushReplacementNamed(
+                context,
+                '/categoriesScreen',arguments:"Categories Screen"
+              );
             },
           ),
           ListTile(
             leading: Icon(Icons.people),
             title: Text('Waridi Kiosk Vendors'),
             onTap: () {
-              // Handle Waridi Kiosk Vendors onTap
+              Navigator.pushReplacementNamed(
+                context,
+                '/vendors'
+              );
             },
           ),
           ListTile(
@@ -79,7 +85,10 @@ class DrawerWidget extends StatelessWidget {
             leading: Icon(Icons.notifications),
             title: Text('Notifications'),
             onTap: () {
-              // Handle Notifications onTap
+            Navigator.pushNamed(
+                context,
+                '/notifications',
+              );
             },
           ),
           ListTile(
@@ -87,7 +96,7 @@ class DrawerWidget extends StatelessWidget {
             title: Text('Blogs'),
             onTap: () {
               // Handle Blogs onTap
-               Navigator.pushReplacementNamed(
+               Navigator.pushNamed(
                 context,
                 '/blogs',
               );
@@ -99,7 +108,7 @@ class DrawerWidget extends StatelessWidget {
             onTap: () {
               // Handle Settings onTap
              
-               Navigator.pushReplacementNamed(
+               Navigator.pushNamed(
                 context,
                 '/settingsScreen',
               );

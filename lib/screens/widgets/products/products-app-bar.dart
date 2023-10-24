@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:waridionline/screens/orders/OrdersList.dart';
+import 'package:waridionline/screens/orders/orders-list.dart';
 import 'package:badges/badges.dart' as badges;
 
-import '../../models/user_model.dart';
+import '../../../services/cart-provider.dart';
+import '../../../services/product-provider.dart';
 
 class ProductsAppBar extends StatelessWidget {
   @override
@@ -32,6 +33,10 @@ class ProductsAppBar extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 child: TextField(
+                  onChanged: (query) {
+                    // Provider.of<ProductsProvider>(context, listen: false)
+                    //     .searchProducts(query);
+                  },
                   decoration: InputDecoration(
                     hintText: 'Search by name',
                     border: InputBorder.none,
@@ -54,7 +59,7 @@ class ProductsAppBar extends StatelessWidget {
                     .copyWith(color: Colors.white)),
             position: badges.BadgePosition.topEnd(top: 0, end: 3),
             badgeAnimation: badges.BadgeAnimation.slide(
-              // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
+              disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
               curve: Curves.easeInCubic,
             ),
             showBadge: true,
@@ -64,7 +69,12 @@ class ProductsAppBar extends StatelessWidget {
             child: IconButton(
                 icon: Icon(Icons.shopping_cart),
                 iconSize: 27,
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/cartScreen',
+                  );
+                }),
           ),
         )
       ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:waridionline/screens/orders/OrderDetails.dart';
+import 'package:waridionline/screens/orders/orderdetails.dart';
 
 class Order {
   final String title;

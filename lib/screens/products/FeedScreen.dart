@@ -3,7 +3,7 @@ import 'package:waridionline/screens/widgets/products/all-products-grid-view.dar
 import 'package:waridionline/screens/widgets/products/products-app-bar.dart';
 
 import '../widgets/home-app-bar.dart';
-import '../widgets/sidebar.dart';
+import '../home/sidebar.dart';
 import '../widgets/feeds/feed1.dart';
 
 class FeedScreen extends StatelessWidget {

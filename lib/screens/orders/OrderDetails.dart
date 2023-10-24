@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:waridionline/screens/orders/CheckoutScreen.dart';
-import 'package:waridionline/screens/orders/PayViaCard.dart';
+import 'package:waridionline/screens/orders/checkout-screen.dart';
 
 class OrdersScreen extends StatelessWidget {
   @override
@@ -180,13 +179,8 @@ class OrdersScreen extends StatelessWidget {
              Container(
               width: double.infinity,
                child: ElevatedButton(
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            CheckoutScreen(), // Replace with the destination screen
-                      ),
-                    ),
+                  onPressed: () => Navigator.pushNamed(context, '/')
+                  ,
                   child: Text(
                     'Checkout',
                     style: TextStyle(

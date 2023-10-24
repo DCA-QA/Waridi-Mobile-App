@@ -1,41 +1,27 @@
-import 'dart:js';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../screens/cartoperations/models/products.dart';
-import '../screens/widgets/products/all-products-grid-view.dart';
+import '../screens/models/notifications/notifications.dart';
 
 class Services {
-  // List<Product> filterProducts(
-  //   List<Product> products,
-  //   List<String> selectedCategories,
-  //   List<String> selectedVendors,
-  //   double minPrice,
-  //   double maxPrice,
-  // ) {
-  //   return products.where((product) {
-  //     // Filter by category
-  //     if (selectedCategories.isNotEmpty &&
-  //         !selectedCategories.contains(product.category)) {
-  //       return false;
-  //     }
+  double calculateVAT(double productPrice, double vatRate) {
+    if (productPrice <= 0 || vatRate <= 0) {
+      return 0.0;
+    }
 
-  //     // Filter by vendor
-  //     if (selectedVendors.isNotEmpty &&
-  //         !selectedVendors.contains(product.vendors)) {
-  //       return false;
-  //     }
+    double vatAmount = productPrice * (vatRate / 100);
 
-  //     // Filter by price
-  //     if (double.parse(product.price) < minPrice ||
-  //         double.parse(product.price) > maxPrice) {
-  //       return false;
-  //     }
+    return double.parse(vatAmount.toStringAsFixed(2));
+  }
 
-  //     return true;
-  //   }).toList();
-  // }
+  Future<List<NotificationModel>> loadNotifications() async {
+    final jsonString = await rootBundle.loadString(
+        'assets/jsonfiles/notifications.json'); // Replace with the path to your JSON file
 
- 
+    final List<dynamic> jsonList = json.decode(jsonString);
+    final List<NotificationModel> notifications =
+        jsonList.map((json) => NotificationModel.fromJson(json)).toList();
+
+    return notifications;
+  }
 }

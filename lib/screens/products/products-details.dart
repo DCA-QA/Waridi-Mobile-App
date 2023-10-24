@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
-import '../../services/user-services.dart';
-import '../cartoperations/models/products.dart';
-import '../models/user_model.dart';
+import 'package:waridionline/screens/models/products/products.dart';
+import '../../services/product-service.dart';
+
+
+import '../../services/cart-provider.dart';
 import '../widgets/products/all-products-grid-view.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -15,15 +18,7 @@ class ProductDetailsScreen extends StatefulWidget {
   _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
 }
 
-late Product products;
-
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  Future<Product> getProduct(int id) async {
-    products = await context.read<UserService>().fetchProductByID(id);
-    setState(() {});
-    return products;
-  }
-
   int quantity = 1;
   String selectedSize = 'Medium'; // Default selected size
   final Map<String, int> sizesInStock = {
@@ -43,28 +38,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final product = widget.product;
     // final shoppingCart = Provider.of<ShoppingCart>(context);
     _showCartBadge = _cartBadgeAmount > 0;
-    Widget _shoppingCartBadge() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: badges.Badge(
-          position: badges.BadgePosition.topEnd(top: 0, end: 3),
-          badgeAnimation: badges.BadgeAnimation.slide(
-              // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
-              // curve: Curves.easeInCubic,
-              ),
-          showBadge: _showCartBadge,
-          badgeStyle: badges.BadgeStyle(
-            badgeColor: color,
-          ),
-          badgeContent: Text(
-            5.toString(),
-            style: TextStyle(color: Colors.white),
-          ),
-          child: IconButton(
-              icon: Icon(Icons.shopping_cart), iconSize: 27, onPressed: () {}),
-        ),
-      );
-    }
+  
 
     Widget buildStarRatings(double rating) {
       List<Widget> stars = [];
@@ -108,7 +82,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: IconButton(
                 icon: Icon(Icons.shopping_cart),
                 iconSize: 27,
-                onPressed: () {},
+                onPressed: () {
+                Navigator.pushNamed(
+                    context,
+                    '/cartScreen',
+                  );
+                },
               ),
             )
           ],
@@ -163,34 +142,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(8),
-                                          bottomLeft: Radius.circular(8)),
-                                      color: Colors.amber,
-                                    ),
-                                    child: IconButton(
-                                      icon: Icon(Icons.remove),
-                                      onPressed: () {
-                                        // saveData(product.id);
-                                        if (quantity > 1) {
-                                          setState(() {
-                                            quantity--;
-                                          });
-                                        }
-                                      },
-                                    ),
-                                  ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(8),
+                                            bottomLeft: Radius.circular(8)),
+                                        color: Colors.amber,
+                                      ),
+                                      child: IconButton(
+                                        icon: Icon(Icons.remove),
+                                        onPressed: () {
+                                          context
+                                              .read<User>()
+                                              .decreseProduct(product);
+                                        },
+                                      )),
                                   SizedBox(width: 5),
-                                  Text(quantity.toString()),
+                                  Text(context
+                                              .watch<User>()
+                                              .basketProducts[product] ==
+                                          null
+                                      ? "0"
+                                      : "${context.watch<User>().basketProducts[product]}"),
                                   SizedBox(width: 5),
                                   Container(
                                     child: IconButton(
                                       icon: Icon(Icons.add),
                                       onPressed: () {
-                                        setState(() {
-                                          quantity++;
-                                        });
+                                        context
+                                            .read<User>()
+                                            .incrementProduct(product);
                                       },
                                     ),
                                     decoration: BoxDecoration(
@@ -242,31 +222,27 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            if (_isAddedToCart) {
-                              // Add the item to the cart
-                              context
-                                  .read<User>()
-                                  .addFirstItemToBasket(product);
-                            } else {
-                              // Show a message indicating that the item is already in the cart
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Item is already in the cart'),
-                                ),
-                              );
-                            }
-                          });
+                          context.read<User>().addFirstItemToBasket(product);
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: _isAddedToCart ? Colors.grey : Colors.amber,
+                          primary: context.read<User>().itemInCart(product)
+                              ? Colors.grey
+                              : Colors.amber,
                           minimumSize: Size(150, 55),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(0),
                           ),
                         ),
                         child: Text(
-                          _isAddedToCart ? 'Remove from Cart' : 'Add to Cart',
+                          //  icon: Icon(
+                          //   CupertinoIcons.cart,
+                          //   color: context.read<User>().itemInCart(product)
+                          //       ? Colors.amber
+                          //       : Colors.grey,
+                          // ),
+                          context.read<User>().itemInCart(product)
+                              ? 'Remove from Cart'
+                              : 'Add to Cart',
                         ),
                       ),
                     ),

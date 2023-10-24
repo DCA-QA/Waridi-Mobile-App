@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../services/filter-provider.dart';
 
 class ProductFilters {
   double minPrice;
@@ -47,15 +50,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   List<String> selectedCategory = []; // To store selected brands
 
   List<String> allCategory = [
-    'Electronics',
-    'Clothing',
-    'Home Appliances',
-    'Books',
-    'Toys',
-    'Beauty & Personal Care',
-    'Sports & Outdoors',
-    'Furniture',
-    'Jewelry',
+    'Jewelery',
+    'electronics',
+    "women's clothing",
+    "men's clothing",
     // Add more categories here
   ];
 
@@ -79,7 +77,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     super.initState();
     _minPriceController.text = _minPrice.toInt().toString();
     _maxPriceController.text = _maxPrice.toInt().toString();
-    loadSavedFilters();
+    // loadSavedFilters();
   }
 
   // Method to save filters in SharedPreferences
@@ -107,30 +105,11 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   }
 
   // Method to clear saved filters
-  Future<void> clearFilters() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('minPrice');
-    await prefs.remove('maxPrice');
-    await prefs.remove('selectedBrands');
-    await prefs.remove('selectedCategory');
-    await prefs.remove('selectedVendor');
-    // Reset the filter variables
-    setState(() {
-      _minPrice = 0;
-      _maxPrice = 200000;
-      selectedBrands = [];
-      selectedCategory = [];
-      selectedVendor = [];
-    });
-    _minPriceController.text = '';
-    _maxPriceController.text = '';
-  }
+  
 
   @override
   Widget build(BuildContext context) {
-    // List<String> selectedVendors = [];
-    // List<String> selectedCategories = [];
-    // List<String> selectedBrands = [];
+    final filterProvider = Provider.of<FilterProvider>(context);
     ProductFilters filters = ProductFilters(
       minPrice: _minPrice,
       maxPrice: _maxPrice,
@@ -242,35 +221,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           Column(
-            children: allVendors.map((brand) {
-              return CheckboxListTile(
-                activeColor: Colors.amber,
-                checkColor: Colors.amberAccent,
-                title: Text(brand),
-                value: selectedVendor.contains(brand),
-                onChanged: (bool? value) {
-                  setState(() {
-                    timeDilation = value! ? 5.0 : 1.0;
-                    if (value!) {
-                      selectedVendor.add(brand);
-                    } else {
-                      selectedVendor.remove(brand);
-                    }
-                  });
-                },
-                // secondary: const Icon(Icons.hourglass_empty),
-              );
-            }).toList(),
-          ),
-          Text(
-            'Select Vendor',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          Column(
             children: allCategory.map((brand) {
               return CheckboxListTile(
                 activeColor: Colors.amber,
-                // checkColor: Colors.amberAccent,
+                checkColor: Colors.amberAccent,
                 title: Text(brand),
                 value: selectedCategory.contains(brand),
                 onChanged: (bool? value) {
@@ -287,10 +241,42 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               );
             }).toList(),
           ),
+          Text(
+            'Select Vendor',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          Column(
+            children: allVendors.map((brand) {
+              return CheckboxListTile(
+                activeColor: Colors.amber,
+                // checkColor: Colors.amberAccent,
+                title: Text(brand),
+                value: selectedVendor.contains(brand),
+                onChanged: (bool? value) {
+                  setState(() {
+                    timeDilation = value! ? 5.0 : 1.0;
+                    if (value!) {
+                      selectedVendor.add(brand);
+                    } else {
+                      selectedVendor.remove(brand);
+                    }
+                  });
+                },
+                // secondary: const Icon(Icons.hourglass_empty),
+              );
+            }).toList(),
+          ),
           ElevatedButton(
             onPressed: () async {
               // Save filters to SharedPreferences
-              await saveFilters();
+              // await saveFilters();
+              filterProvider.updateFilters(
+                _minPrice,
+                _maxPrice,
+                selectedBrands,
+                selectedCategory,
+                selectedVendor,
+              );
               // Close the bottom sheet
               Navigator.of(context).pop();
             },

@@ -3,6 +3,10 @@ import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_credit_card/custom_card_type_icon.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:provider/provider.dart';
+import 'package:waridionline/services/services.dart';
+
+import '../../services/cart-provider.dart';
 
 class Checkout extends StatefulWidget {
   const Checkout({super.key});
@@ -21,12 +25,19 @@ class _CheckoutState extends State<Checkout> {
   bool useBackgroundImage = false;
   OutlineInputBorder? border;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     late String selectedPaymentMethod = "0";
+    double vat =
+        Services().calculateVAT(context.watch<User>().basketTotalMoney, 16);
+    double delivery = 200;
+
+    double summary = vat + context.watch<User>().basketTotalMoney + delivery;
+
     return Scaffold(
         appBar: AppBar(
-          title: Text("Checkout"),
+          title: Text("Checkout",style:Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 25,fontWeight: FontWeight.bold)),
           automaticallyImplyLeading: true,
           centerTitle: true,
         ),
@@ -283,21 +294,12 @@ class _CheckoutState extends State<Checkout> {
                     },
                   ),
                 ),
-                // RadioListTile(
-                //   title: Text("Buy Goods"),
-                //   value: "Buy Goods",
-                //   groupValue: selectedPaymentMethod,
-                //   onChanged: (value) {
-                //     setState(() {
-                //       selectedPaymentMethod = value.toString();
-                //     });
-                //   },
-                // ),
+               
                 SizedBox(height: 16.0),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(15.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -307,7 +309,7 @@ class _CheckoutState extends State<Checkout> {
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.bold)),
-                  Text("KES 28,000",
+                  Text(context.watch<User>().basketTotalMoney.toString(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -316,7 +318,7 @@ class _CheckoutState extends State<Checkout> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 15.0, right: 15),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -326,7 +328,7 @@ class _CheckoutState extends State<Checkout> {
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.bold)),
-                  Text("KES 1000",
+                  Text("KES $delivery",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -335,7 +337,7 @@ class _CheckoutState extends State<Checkout> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 15.0, right: 15),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -345,7 +347,7 @@ class _CheckoutState extends State<Checkout> {
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.bold)),
-                  Text("KES 2800",
+                  Text(vat.toString(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -354,9 +356,9 @@ class _CheckoutState extends State<Checkout> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+               padding: const EdgeInsets.only(left:15.0,right:15.0),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Summary",
@@ -364,14 +366,33 @@ class _CheckoutState extends State<Checkout> {
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.bold)),
-                  Text("KES 30,000",
+                  Text("KES $summary",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.w900))
                 ],
               ),
-            )
+            ),
+            ElevatedButton(
+              onPressed: () {
+                 Navigator.pushNamed(
+                        context,
+                        '/orderDone',
+                      );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFFFFDF01), // Use FFDF01 color for the button
+                minimumSize: Size(MediaQuery.of(context).size.width * 0.5, 40),
+
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(4.0), // Set border radius to 0
+                ),
+              ),
+              child: Text('Order Now'),
+            ),
+          
           ],
         ));
   }

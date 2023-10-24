@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
-import '../models/user_model.dart';
+import '../../services/cart-provider.dart';
 
 class MyAppBar extends StatelessWidget {
   @override
@@ -67,35 +67,16 @@ class MyAppBar extends StatelessWidget {
               child: IconButton(
                 icon: Icon(Icons.shopping_cart),
                 iconSize: 27,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/cartScreen',
+                  );
+                },
               ),
             );
           },
         ),
-
-        // Padding(
-        //   padding: const EdgeInsets.all(8.0),
-        //   child: badges.Badge(
-        //     badgeContent: Text(context.watch<User>().totalProduct.toString(),
-        //         style: Theme.of(context)
-        //             .textTheme
-        //             .overline!
-        //             .copyWith(color: Colors.white)),
-        //     position: badges.BadgePosition.topEnd(top: 0, end: 3),
-        //     badgeAnimation: badges.BadgeAnimation.slide(
-        //       // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
-        //       curve: Curves.easeInCubic,
-        //     ),
-        //     showBadge: true,
-        //     badgeStyle: badges.BadgeStyle(
-        //       badgeColor: Colors.amber,
-        //     ),
-        //     child: IconButton(
-        //         icon: Icon(Icons.shopping_cart),
-        //         iconSize: 27,
-        //         onPressed: () {}),
-        //   ),
-        // )
       ],
     );
   }
