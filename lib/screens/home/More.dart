@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:waridionline/screens/home/faqs.dart';
-import 'package:waridionline/screens/orders/CheckoutScreen.dart';
-import 'package:waridionline/screens/orders/OrdersList.dart';
+import 'package:waridionline/screens/orders/checkout-screen.dart';
+import 'package:waridionline/screens/orders/orders-list.dart';
 
 import '../products/categories-screen.dart';
 
