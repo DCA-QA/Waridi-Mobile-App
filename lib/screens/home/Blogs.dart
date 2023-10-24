@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class BlogScreen extends StatelessWidget {
-  // Sample blog data (you can replace this with your own data)
-  final List<BlogPost> blogPosts = [
+import '../models/others/blogpost.dart';
+import '../widgets/blogs-card.dart';
+final List<BlogPost> blogPosts = [
     BlogPost(
       title: 'Together we create',
       description:
@@ -75,6 +75,10 @@ class BlogScreen extends StatelessWidget {
     )
   ];
 
+class BlogScreen extends StatelessWidget {
+  // Sample blog data (you can replace this with your own data)
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,61 +109,4 @@ class BlogScreen extends StatelessWidget {
   }
 }
 
-class BlogPost {
-  final String title;
-  final String description;
-  final String imageUrl;
 
-  BlogPost(
-      {required this.title, required this.description, required this.imageUrl});
-}
-
-class BlogCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final String imageUrl;
-
-  BlogCard({
-    required this.title,
-    required this.description,
-    required this.imageUrl,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(16),
-      elevation: 4,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Image.network(
-            imageUrl,
-            height: 150,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
