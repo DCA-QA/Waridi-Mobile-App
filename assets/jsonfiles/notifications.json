@@ -1,0 +1,18 @@
+[
+    {
+      "id": 1,
+      "title": "New Message",
+      "subtitle": "You have a new message from John.",
+      "imageUrl": "https://source.unsplash.com/random",
+      "timestamp": "2023-10-20T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Friend Request",
+      "subtitle": "You have a friend request from Alice.",
+      "imageUrl": "https://source.unsplash.com/random",
+      "timestamp": "2023-10-19T15:30:00Z"
+    }
+ 
+  ]
+  
