@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waridionline/screens/widgets/products/all-products-grid-view.dart';
 import 'package:waridionline/screens/widgets/products/categories-grid.dart';
 import 'package:waridionline/screens/widgets/vendors-grid-view.dart';
 
+import '../services/product-provider.dart';
 import 'home/carousel.dart';
 import 'products/filters-bottom-sheet.dart';
 import 'widgets/products/categories-list.dart';
@@ -17,19 +19,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-   ProductFilters _appliedFilters = ProductFilters(
+  @override
+  void initState() {
+    super.initState();
+    final productsProvider = ProductsProvider();
+    productsProvider.fetchProducts();
+    loadSavedFilters();
+  }
+
+  ProductFilters _appliedFilters = ProductFilters(
     minPrice: 0,
     maxPrice: 200000,
     selectedBrands: [],
     selectedCategories: [],
     selectedVendors: [],
   );
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    loadSavedFilters();
-  }
 
   // Method to load saved filters from SharedPreferences
   Future<void> loadSavedFilters() async {
@@ -93,7 +97,9 @@ class _HomePageState extends State<HomePage> {
                     onpressed: () => navigateToProducts(context),
                   ),
                   // GridViewProduct(liquors: recentDeals),
-                  AllProductsGrid(appliedFilters: _appliedFilters,)
+                  AllProductsGrid(
+                    appliedFilters: _appliedFilters,
+                  )
                 ],
               ),
             ],
