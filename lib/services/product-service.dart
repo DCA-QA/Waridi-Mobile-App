@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/models/others/vendors.dart';
 import '../screens/models/products/products.dart';
 
 class UserService {
@@ -55,5 +57,6 @@ class UserService {
 
     throw Exception();
   }
+
   
 }

@@ -8,13 +8,8 @@ class ChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Waridi Support'),
-        backgroundColor: const Color(0xFFa2a803),
-        elevation: 0,
-      ),
-      body: Tawk(
+    return SafeArea(
+      child: Tawk(
         directChatLink: 'https://tawk.to/chat/65363155a84dd54dc484244d/1hddr1e5a',
         visitor: TawkVisitor(
           name: 'Mwashe Berit',

@@ -5,9 +5,8 @@ import 'package:waridionline/screens/orders/orders-list.dart';
 
 import '../products/categories-screen.dart';
 
-
 class More extends StatefulWidget {
-  const More({super.key});
+  const More({Key? key});
 
   @override
   State<More> createState() => _MoreState();
@@ -16,79 +15,46 @@ class More extends StatefulWidget {
 class _MoreState extends State<More> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: ListView(
-      children: [
-        ListTile(
-            leading:
-                CircleAvatar(backgroundColor: Colors.amber, child: Text("A")),
-            // Replace with your image source
-            title: Text("Order List"),
-            trailing: IconButton(
-              icon: Icon(Icons.arrow_forward), // Replace with the desired icon
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        OrderListScreen(), // Replace with the destination screen
+    return SafeArea(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            centerTitle: true,
+            title: Text(
+              "More",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            floating: false,
+            pinned: true,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                ListTile(
+                  leading: CircleAvatar(
+                      backgroundColor: Colors.amber, child: Text("D")),
+                  title: Text("FAQS",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  trailing: IconButton(
+                    icon: Icon(Icons.navigate_next),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FAQS(title: "FAQS"),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            )),
-        ListTile(
-            leading:
-                CircleAvatar(backgroundColor: Colors.amber, child: Text("B")),
-            // Replace with your image source
-            title: Text("Checkout"),
-            trailing: IconButton(
-              icon: Icon(Icons.arrow_forward), // Replace with the desired icon
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        Checkout(), // Replace with the destination screen
-                  ),
-                );
-              },
-            )),
-        ListTile(
-            leading:
-                CircleAvatar(backgroundColor: Colors.amber, child: Text("C")),
-            // Replace with your image source
-            title: Text("Categories"),
-            trailing: IconButton(
-              icon: Icon(Icons.arrow_forward), // Replace with the desired icon
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CategoriesScreen(
-                        title:
-                            "Categories Screen"), // Replace with the destination screen
-                  ),
-                );
-              },
-            )),
-        ListTile(
-            leading:
-                CircleAvatar(backgroundColor: Colors.amber, child: Text("C")),
-            // Replace with your image source
-            title: Text("FAQS"),
-            trailing: IconButton(
-              icon: Icon(Icons.arrow_forward), // Replace with the desired icon
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FAQS(
-                        title: "FAQS"), // Replace with the destination screen
-                  ),
-                );
-              },
-            ))
-      ],
-    ));
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

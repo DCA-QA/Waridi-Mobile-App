@@ -1,0 +1,23 @@
+ [
+      {
+        "image": "assets/images/vendor1.jpg",
+        "offerText": "50% off on all items!",
+        "category":"Kiosk"
+      },
+      {
+        "image": "assets/images/vendor2.jpg",
+        "offerText": "Limited-time offer. Don't miss out!",
+        "category":"Official waridi"
+      },
+      {
+        "image": "assets/images/vendor3.jpg",
+        "offerText": "50% off on all items!",
+        "category":"Official waridi"
+      },
+      {
+        "image": "assets/images/vendor1.jpg",
+        "offerText": "50% off on all items!",
+        "category":"Kiosk"
+      }
+     
+    ]

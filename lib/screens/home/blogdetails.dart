@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
 class BlogsDetails extends StatefulWidget {
-  // final Product product;
 
-  // BlogsDetails({});
 
   @override
   _BlogsDetailsState createState() => _BlogsDetailsState();

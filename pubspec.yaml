@@ -59,8 +59,9 @@ dependencies:
   provider: ^6.0.5
   path: ^1.8.3
   fluttertoast: ^8.2.2
-  search_page: ^2.3.0
+
   flutter_tawk: ^0.1.0
+  go_router: ^7.1.1
   # webview_flutter: ^4.4.1
 
 dev_dependencies:

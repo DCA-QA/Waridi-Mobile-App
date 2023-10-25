@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:search_page/search_page.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waridionline/screens/models/products/products.dart';
 import 'package:waridionline/screens/products/filters-bottom-sheet.dart';
